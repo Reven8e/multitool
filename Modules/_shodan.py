@@ -2,6 +2,7 @@ import shodan
 import subprocess, sys
 from colorama import Fore
 
+
 class Shodan():
     def __init__(self):
         subprocess.call('clear', shell=True)

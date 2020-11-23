@@ -1,12 +1,13 @@
-# multitool v0.6
+# multitool v0.7
 Simple Ethical Hacking multitool
 
 ## What can we do with it?
 - Scan ports.
-- ddos targets.
-- bruteforce web directories.
+- DDOS targets.
+- Bruteforce web directories.
 - Check/Test scraped proxies.
-- Use Shodan api to find vulnerabilities.
+- Use Shodan api to find vulnerable machines.
+- Use our exploit database tool to get/find information about vulnerabilites you found.
 
 
 ## Installation

@@ -4,7 +4,7 @@ from colorama import Fore
 def start():
     subprocess.call('clear', shell=True)
 
-    print(f"{Fore.BLUE}[1] Port Scanner.\n[2] BoganBuster (web dir searcher).\n[3] DDOS a target.\n[4] Proxy Checker and gen.\n[5] Shodan searcher.")
+    print(f"{Fore.BLUE}[1] Port Scanner.\n[2] BoganBuster (web dir searcher).\n[3] DDOS a target.\n[4] Proxy Checker and gen.\n[5] Shodan searcher.\n[6] Vulnerabilities searcher. (exploit db)")
     print('\n')
 
     option = input('Please enter a number: ')
@@ -29,6 +29,11 @@ def start():
         from Modules._shodan import Shodan
         shod = Shodan()
         shod.Search()
+
+    if option == '6':
+        from Modules.exploit_db import ep
+        e = ep()
+        e.searcher()
 
 
 if __name__ == "__main__":
