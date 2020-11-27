@@ -104,7 +104,7 @@ def check(proxy):
             else:
                 pass
 
-def start():
+def start_proxy():
     try:
         with open(f"{FILE}.txt", 'r', encoding="utf-8", errors='ignore') as f:
             proxs = f.readlines()
