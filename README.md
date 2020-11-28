@@ -1,7 +1,9 @@
-# Multitool v0.8
-Simple Ethical Hacking multitool.
+# Reven8e's MultiTool.
+- Penetration Testing made easy!
 
-## What can we do with it?
+## A Penetration Testing Tool!
+
+#### What Can We Do With It?
 - Scan ports.
 - DDOS targets.
 - Bruteforce web directories.
@@ -10,16 +12,10 @@ Simple Ethical Hacking multitool.
 - Use our exploit database tool to get/find information about vulnerabilites you found.
 - Use our SQL Injection tester to test your targets for SQL vulnerabilites.
 
-
-## Installation
-- pip/3 install -r requirements.txt
-
-
-## Errors
-- OSError: [Errno 24] Too many open files:
-sudo ulimit -n 2048
+#### Why Should We Use It?
+- Made In Python.
+- Easy To Use!
+- Very Good For Beginners.
+##### - Includes src and compiled to exe!
 
 ### Educational Purposes only!
-
-
-### If you find a bug please report it.
