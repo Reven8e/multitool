@@ -16,6 +16,6 @@
 - Made In Python.
 - Easy To Use!
 - Very Good For Beginners.
-##### - Includes src and compiled to exe!
+#### - Includes src and compiled to exe!
 
 ### Educational Purposes only!
