@@ -9,8 +9,8 @@
 - Bruteforce web directories.
 - Check/Test scraped proxies.
 - Use Shodan api to find vulnerable machines.
-- Use our exploit database tool to get/find information about vulnerabilites you found.
-- Use our SQL Injection tester to test your targets for SQL vulnerabilites.
+- Use our exploit database tool to get/find information about vulnerabilities you found.
+- Use our SQL Injection tester to test your targets for SQL vulnerabilities.
 
 #### Why Should We Use It?
 - Made In Python.
