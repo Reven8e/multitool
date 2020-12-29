@@ -11,6 +11,7 @@
 - Use Shodan api to find vulnerable machines.
 - Use our exploit database tool to get/find information about vulnerabilities you found.
 - Use our SQL Injection tester to test your targets for SQL vulnerabilities.
+- BruteForce SSH ports.
 
 #### Why Should We Use It?
 - Made In Python.
