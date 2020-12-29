@@ -29,8 +29,10 @@ mccabe==0.6.1
 msgpack==0.6.2
 packaging==20.3
 pep517==0.8.2
+pexpect==4.8.0
 ply==3.11
 progress==1.5
+ptyprocess==0.7.0
 pycurl==7.43.0.6
 pycvesearch==1.0.1
 pyExploitDb==0.2.4
