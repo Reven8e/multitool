@@ -1,4 +1,4 @@
-# Multitool v0.8
+# Multitool
 Simple Ethical Hacking multitool.
 
 ## What can we do with it?
@@ -9,6 +9,7 @@ Simple Ethical Hacking multitool.
 - Use Shodan api to find vulnerable machines.
 - Use our exploit database tool to get/find information about vulnerabilities you found.
 - Use our SQL Injection tester to test your targets for SQL vulnerabilities.
+- BruteForce SSH ports.
 
 
 ## Installation
