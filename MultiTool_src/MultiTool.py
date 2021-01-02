@@ -33,8 +33,8 @@ def start():
         start_scan()
 
     elif option == '2':
-        from Modules.BoganBuster import start_all
-        start_all()
+        from Modules.BoganBuster import Bogan
+        Bogan().start_all()
 
     elif option == '3':
         from Modules.ddos import start_all

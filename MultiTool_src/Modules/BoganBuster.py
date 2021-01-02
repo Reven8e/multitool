@@ -293,5 +293,3 @@ class Bogan():
 
         elif self.use_proxy == 'n':
             self.start_checker()
-
-Bogan().start_all()
