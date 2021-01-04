@@ -37,8 +37,8 @@ def start():
         Bogan().start_all()
 
     elif option == '3':
-        from Modules.ddos import start_all
-        start_all()
+        from Modules.ddos import DDOS
+        DDOS().start_all()
 
     elif option == '4':
         from Modules.proxy_checker import start_proxy
