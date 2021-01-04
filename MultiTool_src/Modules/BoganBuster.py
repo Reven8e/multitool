@@ -24,13 +24,13 @@ class Bogan():
 
 
         self.thr = 5
-        self.TARGET = input(f"{Fore.BLUE}[CONSOLE] Please enter full url site target: ")
-        self.FILE = input(f"{Fore.BLUE}[CONSOLE] Please enter wordlist file without the extension: ")
-        self.bad_requests = input(f"{Fore.BLUE}[CONSOLE] Shoud I input bad requests too? (y/n): ")
-        self.use_proxy = input(f"{Fore.BLUE}[CONSOLE] Should I use (http) proxies (y/n): ")
+        self.TARGET = 'https://deshalit.co.il/' # input(f"{Fore.BLUE}[CONSOLE] Please enter full url site target: ")
+        self.FILE = 'wordlist' # input(f"{Fore.BLUE}[CONSOLE] Please enter wordlist file without the extension: ")
+        self.bad_requests = 'y' # input(f"{Fore.BLUE}[CONSOLE] Shoud I input bad requests too? (y/n): ")
+        self.use_proxy = 'y' # input(f"{Fore.BLUE}[CONSOLE] Should I use (http) proxies (y/n): ")
 
         if self.use_proxy == 'y':
-            get_proxies = input(f'{Fore.BLUE}[CONSOLE] Should I get the proxies or you already have http proxy list? (get/n):')
+            get_proxies = 'get' # input(f'{Fore.BLUE}[CONSOLE] Should I get the proxies or you already have http proxy list? (get/n):')
 
             if get_proxies == 'get':
                 try:
@@ -64,8 +64,8 @@ class Bogan():
                 self.proxy_file = 'BoganBuster/http_proxies'
 
             else:
-                self.proxy_file = input(f"{Fore.BLUE}[CONSOLE] Please enter the proxy filename without the extension: ")
-            self.timeout = int(input(f"{Fore.BLUE}[CONSOLE] Please enter proxy timeout (10-50): "))
+                self.proxy_file = 'idk' # input(f"{Fore.BLUE}[CONSOLE] Please enter the proxy filename without the extension: ")
+            self.timeout = 10 # int(input(f"{Fore.BLUE}[CONSOLE] Please enter proxy timeout (10-50): "))
         else:
             pass
 
@@ -76,6 +76,7 @@ class Bogan():
 
 
     def proxy_checker(self, proxy):
+        time.sleep(0.05)
         f_p = open('BoganBuster/good_proxies.txt', 'a+')
         headers = {'User-Agent': ''}
         user_agent_list = [
@@ -118,7 +119,6 @@ class Bogan():
             pass
 
     def checker(self, buster, proxy, max_trys = 3):
-        time.sleep(0.05)
         headers = {'User-Agent': ''}
         user_agent_list = [
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36',
@@ -193,19 +193,16 @@ class Bogan():
                             p.start()
                             p_processes.append(p)
 
-                    elif self.proxy_checked > p_LEN:
-                        time.sleep(0.03)
+                    # elif self.proxy_checked >= p_LEN:
+                        time.sleep(0.1)
                         for process in p_processes: 
-                            process.start()
+                            process.join()
 
         except FileNotFoundError:
             print(f'{Fore.RED}[CONSOLE] Proxylist file not found.')
-            sys.exit()
 
         except KeyboardInterrupt:
             print("Caught KeyboardInterrupt, terminating workers")
-            p.terminate()
-            p.join()
 
 
     def start_checker(self):
@@ -225,7 +222,7 @@ class Bogan():
                                 p.start()
                                 processes.append(p)
 
-                        elif self.checked > LEN:
+                        # elif self.checked > LEN:
                             time.sleep(0.03)
                             for process in processes: 
                                 process.join()
@@ -259,7 +256,7 @@ class Bogan():
                                 p.start()
                                 processes.append(p)
 
-                        elif self.checked > LEN:
+                        # elif self.checked > LEN:
                             time.sleep(0.03)
                             for process in processes: 
                                 process.join()
@@ -288,8 +285,8 @@ class Bogan():
                 self.start_checker()
             else:
                 pass
-                Fg.close()
-                sys.exit()
 
         elif self.use_proxy == 'n':
             self.start_checker()
+
+Bogan().start_all()
