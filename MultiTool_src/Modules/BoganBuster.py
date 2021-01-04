@@ -24,13 +24,13 @@ class Bogan():
 
 
         self.thr = 5
-        self.TARGET = 'https://deshalit.co.il/' # input(f"{Fore.BLUE}[CONSOLE] Please enter full url site target: ")
-        self.FILE = 'wordlist' # input(f"{Fore.BLUE}[CONSOLE] Please enter wordlist file without the extension: ")
-        self.bad_requests = 'y' # input(f"{Fore.BLUE}[CONSOLE] Shoud I input bad requests too? (y/n): ")
-        self.use_proxy = 'y' # input(f"{Fore.BLUE}[CONSOLE] Should I use (http) proxies (y/n): ")
+        self.TARGET = input(f"{Fore.BLUE}[CONSOLE] Please enter full url site target: ")
+        self.FILE = input(f"{Fore.BLUE}[CONSOLE] Please enter wordlist file without the extension: ")
+        self.bad_requests = input(f"{Fore.BLUE}[CONSOLE] Shoud I input bad requests too? (y/n): ")
+        self.use_proxy = input(f"{Fore.BLUE}[CONSOLE] Should I use (http) proxies (y/n): ")
 
         if self.use_proxy == 'y':
-            get_proxies = 'get' # input(f'{Fore.BLUE}[CONSOLE] Should I get the proxies or you already have http proxy list? (get/n):')
+            get_proxies = input(f'{Fore.BLUE}[CONSOLE] Should I get the proxies or you already have http proxy list? (get/n):')
 
             if get_proxies == 'get':
                 try:
@@ -64,8 +64,8 @@ class Bogan():
                 self.proxy_file = 'BoganBuster/http_proxies'
 
             else:
-                self.proxy_file = 'idk' # input(f"{Fore.BLUE}[CONSOLE] Please enter the proxy filename without the extension: ")
-            self.timeout = 10 # int(input(f"{Fore.BLUE}[CONSOLE] Please enter proxy timeout (10-50): "))
+                self.proxy_file = input(f"{Fore.BLUE}[CONSOLE] Please enter the proxy filename without the extension: ")
+            self.timeout = int(input(f"{Fore.BLUE}[CONSOLE] Please enter proxy timeout (10-50): "))
         else:
             pass
 
@@ -162,7 +162,6 @@ class Bogan():
 
             except:
                 print(f'{Fore.RED}{self.checked} The proxy might have been blocked by the website! Proxy- {proxy}' if self.bad_requests == 'y' else None)
-                self.checker(buster, proxy)
 
         elif self.use_proxy == 'n':
             try:
@@ -193,7 +192,7 @@ class Bogan():
                             p.start()
                             p_processes.append(p)
 
-                    # elif self.proxy_checked >= p_LEN:
+                    elif self.proxy_checked >= p_LEN:
                         time.sleep(0.1)
                         for process in p_processes: 
                             process.join()
@@ -222,7 +221,7 @@ class Bogan():
                                 p.start()
                                 processes.append(p)
 
-                        # elif self.checked > LEN:
+                        elif self.checked >= LEN:
                             time.sleep(0.03)
                             for process in processes: 
                                 process.join()
@@ -234,7 +233,7 @@ class Bogan():
             
             except KeyboardInterrupt:
                 print("Caught KeyboardInterrupt, terminating workers")
-                p.terminate()
+                sys.exit()
 
             except IndexError:
                 print(f"{Fore.RED}[CONSOLE] There are no valid proxies! Please try again.")
@@ -256,7 +255,7 @@ class Bogan():
                                 p.start()
                                 processes.append(p)
 
-                        # elif self.checked > LEN:
+                        elif self.checked >= LEN:
                             time.sleep(0.03)
                             for process in processes: 
                                 process.join()
@@ -288,5 +287,3 @@ class Bogan():
 
         elif self.use_proxy == 'n':
             self.start_checker()
-
-Bogan().start_all()
