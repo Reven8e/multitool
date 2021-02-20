@@ -4,6 +4,8 @@ import subprocess, time, sys
 from colorama import Fore
 from Modules.BoganBuster import Bogan
 
+yes = ["yes", "y", "ye", "Y", "YES", 'YE']
+no = ["no", "n", "NO", "n"]
 
 def start():
     global el
@@ -82,8 +84,6 @@ if __name__ == "__main__":
             else:
                 break
 
-        yes = ['yes', 'yep', 'y']
-        no = ['no', 'nope', 'n']
         again = input(f'{Fore.BLUE}[CONSOLE] Anything else: ')
         print(' ')
 

