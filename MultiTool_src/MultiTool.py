@@ -2,6 +2,7 @@
 
 import subprocess, time, sys
 from colorama import Fore
+from Modules.BoganBuster import Bogan
 
 
 def start():
@@ -33,8 +34,7 @@ def start():
         start_scan()
 
     elif option == '2':
-        from Modules.BoganBuster import Bogan
-        Bogan().start_all()
+        Bogan().main()
 
     elif option == '3':
         from Modules.ddos import DDOS
