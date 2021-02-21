@@ -3,6 +3,10 @@
 import subprocess, time, sys
 from colorama import Fore
 from Modules.BoganBuster import Bogan
+from Modules.proxy_checker import Proxy_Checker
+from Modules._shodan1 import Shodan1
+from Modules.exploit_db import exploit_db_
+from Modules.ssh import Main
 
 yes = ["yes", "y", "ye", "Y", "YES", 'YE']
 no = ["no", "n", "NO", "n"]
@@ -43,26 +47,19 @@ def start():
         DDOS().start_all()
 
     elif option == '4':
-        from Modules.proxy_checker import start_proxy
-        start_proxy()
-
+        Proxy_Checker().start()
 
     elif option == '5':
-        from Modules._shodan1 import Shodan1
-        shod = Shodan1()
-        shod.Search()
+        Shodan1().Search()
 
     elif option == '6':
-        from Modules.exploit_db import exploit_db_
-        e = exploit_db_()
-        e.searcher()
+        exploit_db_().searcher()
 
     elif option == '7':
         from Modules.sql_tester import start_sql_
         start_sql_()
 
     elif option == '8':
-        from Modules.ssh import Main
         Main().start()
 
     elif option == '9':
