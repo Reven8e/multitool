@@ -39,7 +39,7 @@ class Bogan():
 
             if get_proxies == 'get':
                 try:
-                    os.remove("BoganBuster/http_proxies.txt")
+                    os.remove(f"BoganBuster/{self.proxy_type}_proxies.txt.txt")
                     os.remove("BoganBuster/good_proxies.txt")
                 except:
                     pass
@@ -109,7 +109,7 @@ class Bogan():
                 c.setopt(pycurl.PROXYPORT, int(port))
                 c.setopt(pycurl.PROXYTYPE, pycurl.PROXYTYPE_HTTP)
                 c.setopt(pycurl.HTTPHEADER, [f'user-agent: {random.choice(self.headers)}'])
-                # c.setopt(pycurl.CONNECTTIMEOUT, self.timeout)
+                c.setopt(pycurl.CONNECTTIMEOUT, self.timeout)
                 c.setopt(pycurl.WRITEFUNCTION, lambda x: None)
                 c.perform()
 
@@ -378,7 +378,6 @@ class Bogan():
                 if threading.active_count() < int(self.thr):
                     if self.checked < length:
                         t = threading.Thread(target=self.buster_checker, args=(words[self.checked], None,))
-                        t.daemon = True
                         threads.append(t)
                         t.start()
                         self.checked +=1
