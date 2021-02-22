@@ -5,7 +5,6 @@ from pexpect import pxssh
 from colorama import Fore
 
 
-
 class Main():
     def __init__(self):
         subprocess.call('clear', shell=True)

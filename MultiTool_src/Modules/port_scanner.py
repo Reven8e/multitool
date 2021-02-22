@@ -1,13 +1,13 @@
 # © Port Scanner- Made by Yuval Simon. For bogan.cool
 
 import socket, subprocess, sys, time, os, threading
-
-from datetime import datetime
 from colorama import Fore
 
-subprocess.call('clear', shell=True)
 
-print(f"""{Fore.GREEN}
+class scanner():
+    def __init__(self):
+        subprocess.call('clear', shell=True)
+        print(f"""{Fore.GREEN}
  ██▓███       ██████  ▄████▄   ▄▄▄       ███▄    █  ███▄    █ ▓█████  ██▀███  
 ▓██░  ██▒   ▒██    ▒ ▒██▀ ▀█  ▒████▄     ██ ▀█   █  ██ ▀█   █ ▓█   ▀ ▓██ ▒ ██▒
 ▓██░ ██▓▒   ░ ▓██▄   ▒▓█    ▄ ▒██  ▀█▄  ▓██  ▀█ ██▒▓██  ▀█ ██▒▒███   ▓██ ░▄█ ▒
@@ -20,67 +20,57 @@ print(f"""{Fore.GREEN}
                      ░   
                                                                           
 """)
+        self.server = input(f"{Fore.BLUE}[CONSOLE] Enter ip/domain to scan: ")
+        self.thr = int(input("Please enter threads number: "))
+        self.to_scan = int(input("How many ports to scan (1k-10k): "))
+        self.server_ip = socket.gethostbyname(self.server)
 
+        try:
+            os.remove('PortScanner/open_ports.txt')
+        except:
+            pass
 
-server = input(f"{Fore.BLUE}[CONSOLE] Enter ip/domain to scan: ")
-thr = int(input("Please enter threads number: "))
-to_scan = int(input("How many ports to scan (1k-10k): "))
-server_ip = socket.gethostbyname(server)
+        self.f = open('PortScanner/open_ports.txt', 'a+')
+        self.good = 0
 
-
-now = datetime.now()
-checked = 0
-good = 0
-f = open('port_scanner_results.txt', 'a+')
-
-try:
-    os.remove('port_scanner_results.txt')
-except:
-    pass
-
-print('\n\nStarting scan...')
-time.sleep(1)
-subprocess.call('clear', shell=True)
-
-print(f"{Fore.YELLOW}[CONSOLE] Target's IP: {server_ip}\n")
-print('-' * 30)
-print('\n')
-
-def scan(p):
-    global checked, good, f
-    checked += 1
-    try: 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        r = sock.connect_ex((server_ip, p))
-        if r == 0:
-            print(f'{Fore.GREEN}[CONSOLE] Found open port: {p}')
-            f.write(f"Found open port: {p}\n")
-            good += 1
-
-    except KeyboardInterrupt:
+        print('\n\nStarting scan...')
+        time.sleep(1)
         subprocess.call('clear', shell=True)
-        print("Exitting as you wish...")
-        sys.exit()
 
-    except socket.gaierror:
-        subprocess.call('clear', shell=True)
-        print('Hostname not found. Exiting...')
-        sys.exit()
+        print(f"{Fore.YELLOW}[CONSOLE] Target's IP: {self.server_ip}\n")
+        print('-' * 30)
+        print('\n')
 
-    except socket.error:
-        print("Couldn't connect to server.")
-        sys.exit()
+    def scan(self, p):
+        try: 
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            r = sock.connect_ex((self.server_ip, p))
+            if r == 0:
+                print(f'{Fore.GREEN}[CONSOLE] Found open port: {p}')
+                self.f.write(f"Found open port: {p}\n")
+                self.good += 1
+
+        except KeyboardInterrupt:
+            subprocess.call('clear', shell=True)
+            print("Exitting as you wish...")
+            sys.exit(0)
+
+        except socket.gaierror:
+            print('Hostname not found.')
+
+        except socket.error:
+            print("Couldn't connect to server.")
 
 
-def start_scan():
-    global checked, f
-    threads = []
-    for _ in range(thr):
-        for p in range(1, to_scan):
-            t = threading.Thread(target=scan, args=[p])
-            t.start()
-            threads.append(t)
+    def main(self):
+        threads = []
+        for p in range(0, self.to_scan):
+            if threading.active_count() < self.thr:
+                t = threading.Thread(target=self.scan, args=(p,))
+                t.start()
+                threads.append(t)
 
         for t in threads:
             t.join()
-    f.close()
+        self.f.close()
+        print(f"{Fore.YELLOW}[CONSOLE] Found {self.good} ports out of {self.to_scan}")        

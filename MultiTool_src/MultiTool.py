@@ -7,6 +7,7 @@ from Modules.proxy_checker import Proxy_Checker
 from Modules._shodan1 import Shodan1
 from Modules.exploit_db import exploit_db_
 from Modules.ssh import Main
+from Modules.port_scanner import scanner
 
 yes = ["yes", "y", "ye", "Y", "YES", 'YE']
 no = ["no", "n", "NO", "n"]
@@ -36,8 +37,7 @@ def start():
 
 
     if option == '1':
-        from Modules.port_scanner import start_scan
-        start_scan()
+        scanner().main()
 
     elif option == '2':
         Bogan().main()
