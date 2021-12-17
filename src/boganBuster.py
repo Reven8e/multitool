@@ -44,7 +44,7 @@ class busterChecker(threading.Thread):
 
     def proxy_req(self):
         while True:
-            proxy = random.choice(busterData.proxylist)
+            proxy = random.choice(self.busterData.proxylist)
 
             if 'http' in self.proxy_type.lower():
                 proxy_conf = {
